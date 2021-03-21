@@ -7,10 +7,12 @@
  * This requires joining from the category table down to the actor table.
  */
 SELECT
-    children.full_name
+    children.first_name,
+    children.last_name
 FROM (
     SELECT DISTINCT
-        actor.first_name || ' ' || actor.last_name AS full_name
+        actor.first_name,
+        actor.last_name
         --category.name
     FROM actor
     INNER JOIN film_actor USING (actor_id)
@@ -22,7 +24,8 @@ FROM (
 ) AS Children
 LEFT JOIN (
     SELECT DISTINCT
-        actor.first_name || ' ' || actor.last_name AS full_name
+        actor.first_name,
+        actor.last_name
         --category.name
     FROM actor
     INNER JOIN film_actor USING (actor_id)
@@ -31,7 +34,7 @@ LEFT JOIN (
     INNER JOIN category USING (category_id)
     WHERE name = 'Horror'
     --ORDER BY actor.first_name, actor.last_name
-) AS Horror ON children.full_name = Horror.full_name
-WHERE Horror.full_name IS NULL
-ORDER BY full_name
+) AS Horror ON children.first_name = Horror.first_name AND children.last_name = Horror.last_name
+WHERE Horror.first_name IS NULL AND Horror.last_name IS NULL
+ORDER BY children.first_name, children.last_name 
 ;
