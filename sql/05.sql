@@ -4,14 +4,14 @@
  */
 
 CREATE TABLE project (
-    id SERIAL PRIMARY KEY,
-    target_type VARCHAR(2) NOT NULL,
-    target_id INTEGER NOT NULL,
-    title VARCHAR(256),
-    data TEXT,
-    project_id INTEGER NOT NULL UNIQUE,
+    author_id BIGINT NOT NULL,
     created_at TIMESTAMPTZ,
     updated_at TIMESTAMPTZ,
+    id SERIAL PRIMARY KEY,
+    project_id INTEGER NOT NULL UNIQUE,
+    target_id INTEGER NOT NULL,
     action SMALLINT NOT NULL,
-    author_id BIGINT NOT NULL
+    target_type VARCHAR(2) NOT NULL,
+    title VARCHAR(256),
+    data TEXT
 );
